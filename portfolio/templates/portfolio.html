@@ -1,0 +1,27 @@
+<h1>{{ profile.user.username }}</h1>
+<p>{{ profile.bio }}</p>
+
+<h2>Skills</h2>
+<ul>
+{% for skill in skills %}
+    <li>{{ skill.name }}</li>
+{% endfor %}
+</ul>
+
+<h2>Education</h2>
+<ul>
+{% for edu in education %}
+    <li>{{ edu.degree }} - {{ edu.college }}</li>
+{% endfor %}
+</ul>
+
+<h2>Projects</h2>
+<ul>
+{% for project in projects %}
+    <li>
+        <strong>{{ project.title }}</strong><br>
+        {{ project.description }}<br>
+        <a href="{{ project.link }}">View</a>
+    </li>
+{% endfor %}
+</ul>
