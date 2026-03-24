@@ -78,9 +78,13 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Dynamically set database configuration from environment variables
+# Vercel Postgres uses POSTGRES_URL, while other services use DATABASE_URL
+db_url = os.environ.get('DATABASE_URL') or os.environ.get('POSTGRES_URL')
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+        default=db_url or f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
         conn_max_age=600
     )
 }
