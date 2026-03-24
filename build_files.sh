@@ -1,3 +1,12 @@
 #!/bin/bash
-pip3 install -r requirements.txt --break-system-packages
-python3.9 manage.py collectstatic --noinput
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Install required packages
+pip install -r requirements.txt
+
+# Collect static files
+python manage.py collectstatic --noinput
