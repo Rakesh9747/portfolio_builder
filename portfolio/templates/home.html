@@ -1,2 +1,324 @@
-<h1>Welcome to Portfolio Builder</h1>
-<p>Go to /portfolio/yourusername</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortfolioBuilder - Create Stunning Portfolios</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Modern Glassmorphic Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #475569 !important;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            color: white !important;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 160px 0 100px;
+            background: radial-gradient(circle at top right, rgba(236, 72, 153, 0.1), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(79, 70, 229, 0.1), transparent 40%);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Templates Section */
+        .templates-preview {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .browser-mockup {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .browser-header {
+            background: #f1f5f9;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px; height: 12px; border-radius: 50%;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fa-solid fa-layer-group me-2"></i>PortfolioBuilder
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#templates">Templates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Profile</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <div class="d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-modern rounded-pill">Dashboard</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark rounded-pill px-4 me-2">Log In</a>
+                        <a href="{% url 'register' %}" class="btn btn-modern">Sign Up Free</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-4 fw-semibold border border-primary border-opacity-25">
+                        🚀 The Easiest Way to Build Your Portfolio
+                    </span>
+                    <h1 class="hero-title">Showcase Your Work <br>Like a Professional.</h1>
+                    <p class="hero-subtitle">Create a stunning, responsive portfolio website in minutes. Choose a premium template, add your skills and projects, and publish instantly.</p>
+                    
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-modern btn-lg px-5 py-3 fs-5">Go to Dashboard <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        {% else %}
+                            <a href="{% url 'register' %}" class="btn btn-modern btn-lg px-5 py-3 fs-5">Get Started Free <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                            <a href="#templates" class="btn btn-light btn-lg px-5 py-3 fs-5 shadow-sm">View Templates</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Everything you need below</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-wand-magic-sparkles feature-icon"></i>
+                        <h4 class="fw-bold mb-3">Instant Generation</h4>
+                        <p class="text-muted">No coding required. Fill out a simple form with your details, skills, and projects, and your site is ready instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card" style="transform: translateY(-20px);">
+                        <i class="fa-solid fa-palette feature-icon"></i>
+                        <h4 class="fw-bold mb-3">Premium Templates</h4>
+                        <p class="text-muted">Choose from beautifully crafted layouts and themes that make your work stand out on any device.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-globe feature-icon"></i>
+                        <h4 class="fw-bold mb-3">Live URLs</h4>
+                        <p class="text-muted">Your portfolio gets an instant live link that you can share on your resume, LinkedIn, or Twitter.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Preview Section -->
+    <section id="templates" class="templates-preview">
+        <div class="container">
+            <h2 class="section-title">Beautiful Templates</h2>
+            <p class="text-center text-muted mb-5" style="max-width: 600px; margin: 0 auto;">Select from our constantly growing library of professionally designed templates tailor-made for developers, designers, and creators.</p>
+            
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="browser-mockup flex-column floating-element" style="animation-delay: 0s;">
+                        <div class="browser-header">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div style="height: 300px; background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%); display:flex; align-items:center; justify-content:center;">
+                            <h3 class="fw-bold text-white">Modern Bright Template</h3>
+                        </div>
+                        <div class="p-4 bg-white text-center">
+                            <h5>Perfect for UI/UX Designers</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="browser-mockup flex-column floating-element" style="animation-delay: 2s;">
+                        <div class="browser-header">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div style="height: 300px; background: linear-gradient(135deg, #16a085 0%, #f4d03f 100%); display:flex; align-items:center; justify-content:center;">
+                            <h3 class="fw-bold text-white">Minimalist Pro Template</h3>
+                        </div>
+                        <div class="p-4 bg-white text-center">
+                            <h5>Great for Software Engineers</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5 pt-4">
+                <a href="{% url 'register' %}" class="btn btn-dark btn-lg px-5 rounded-pill">Create Yours Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4 text-center">
+        <div class="container">
+            <p class="mb-0 text-white-50">© 2026 PortfolioBuilder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

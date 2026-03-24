@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Profile, Education, Project, Skill
 
 
+# Home
+def home(request):
+    return render(request, 'home.html')
+
 # Register
 def register(request):
     if request.method == 'POST':
@@ -41,7 +45,7 @@ def user_login(request):
 # Logout
 def user_logout(request):
     logout(request)
-    return redirect('dashboard.html')
+    return redirect('home.html')
 
 from django.contrib.auth.decorators import login_required
 

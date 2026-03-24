@@ -13,6 +13,7 @@ urlpatterns = [
     path('select-template/', views.select_template),
     path('build/', views.build_portfolio),
 
-    path('', views.dashboard, name='dashboard'),
+    path('', views.home, name='home'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('portfolio/<str:username>/', views.portfolio_view, name='portfolio_view'),
 ]
